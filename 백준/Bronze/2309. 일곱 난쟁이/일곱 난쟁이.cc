@@ -1,27 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
-int in[9];
-int total;
+int height[9], total;
 
 int main(){
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-
+	ios::sync_with_stdio(0); cin.tie(0);
 	for (int i=0; i<9; i++) {
-		cin >> in[i];
-		total += in[i];	
+		cin >> height[i];
+		total += height[i];
 	}
+	sort(height, height+9);
 	
-	for (int i=0; i<9; i++){
-		for (int j=i+1; j<9; j++){
-			if (total - (in[i]+in[j]) == 100){
-				in[i] = 100;
-				in[j] = 100;
-				
-				sort(in, in + 9);
-				for (int i=0; i<7; i++) cout << in[i] << '\n';
-				return 0;
-			}
-		}
-	}
+	do {
+		int sum = 0;
+		for (int i=0; i<7; i++) sum += height[i];
+		if (sum == 100) break;
+	
+	} while (next_permutation(height, height+9));
+	
+	for (int i=0; i<7; i++) cout << height[i] << '\n';
 }

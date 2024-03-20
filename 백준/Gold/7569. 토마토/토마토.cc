@@ -1,57 +1,60 @@
 #include <bits/stdc++.h>
+#define X get<0>
+#define Y get<1>
+#define Z get<2>
+
 using namespace std;
+int board[102][102][102];
+int vis[102][102][102];
+int n,m,h,mx;
 
-int dx[6] = {0, 0, 1, -1, 0, 0};
-int dy[6] = {1, -1, 0, 0, 0, 0};
-int dz[6] = {0, 0, 0, 0, 1, -1};
-int board[103][103][103];
-int dist[103][103][103];
+int dx[6] = {1, 0, -1,  0, 0,  0};
+int dy[6] = {0, 1,  0, -1, 0,  0};
+int dz[6] = {0, 0,  0,  0, 1, -1};
+
 queue<tuple<int, int, int>> Q;
-int m, n, h;
-int main(void) {
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
-  cin >> m >> n >> h;
-  for (int i = 0; i < h; i++) {
-    for (int j = 0; j < n; j++) {
-      for (int k = 0; k < m; k++) {
-        int tmp;
-        cin >> tmp;
-        board[j][k][i] = tmp;
-        if (tmp == 1) Q.push({j, k, i});
-        if (tmp == 0) dist[j][k][i] = -1;
-      }
-    }
-  }
 
-  while (!Q.empty()) {
-    auto cur = Q.front();
-    Q.pop();
-    int curX, curY, curZ;
-    tie(curX, curY, curZ) = cur;
-    for (int dir = 0; dir < 6; dir++) {
-      int nx = curX + dx[dir];
-      int ny = curY + dy[dir];
-      int nz = curZ + dz[dir];
-      if (nx < 0 || nx >= n || ny < 0 || ny >= m || nz < 0 || nz >= h) continue;
-      if (dist[nx][ny][nz] >= 0) continue;
-      dist[nx][ny][nz] = dist[curX][curY][curZ] + 1;
-      Q.push({nx, ny, nz});
-    }
-  }
+int main(){
+	ios::sync_with_stdio(0); cin.tie(0);
+	cin >> m >> n >> h;
+	
+	for (int i=0; i<h; i++){
+		for (int j=0; j<n; j++){
+			for (int k=0; k<m; k++){
+				cin >> board[i][j][k];
+				if (board[i][j][k] == 1) {
+					Q.push(tuple<int,int,int> (j, k, i)); 
+					vis[i][j][k]=0;
+				}
+				else vis[i][j][k]=-1;
+			}
+		}
+	}
+	
+	while(Q.size()){
+		tuple<int,int,int> cur = Q.front(); Q.pop();
+		for(int i=0; i<6; i++){
+			int nx = dx[i] + X(cur);
+			int ny = dy[i] + Y(cur);
+			int nz = dz[i] + Z(cur);
+			
+			if (nx>=n || ny>=m || nz>=h || nx<0 || ny<0 || nz<0) continue;
+			if (vis[nz][nx][ny]!=-1 || board[nz][nx][ny] == -1) continue;
+			vis[nz][nx][ny] = vis[Z(cur)][X(cur)][Y(cur)] + 1;
+			Q.push(tuple<int,int,int> (nx,ny,nz) );
+			mx = max(mx, vis[nz][nx][ny]);
+		}
+	}
 
-  int ans = 0;
-  for (int i = 0; i < h; i++) {
-    for (int j = 0; j < n; j++) {
-      for (int k = 0; k < m; k++) {
-        if (dist[j][k][i] == -1) {
-          cout << -1 << "\n";
-          return 0;
-        }
-        ans = max(ans, dist[j][k][i]);
-      }
-    }
-  }
-  cout << ans << "\n";
-  return 0;
+	for (int i=0; i<h; i++){
+		for (int j=0; j<n; j++){
+			for (int k=0; k<m; k++){
+				if (board[i][j][k]==0 && vis[i][j][k]==-1) {
+					cout << -1; 
+					return 0;
+				}
+			}
+		}
+	}
+	cout << mx;
 }

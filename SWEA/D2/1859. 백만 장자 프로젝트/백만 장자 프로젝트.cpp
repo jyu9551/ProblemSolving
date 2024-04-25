@@ -1,25 +1,38 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
 
-int main(){
-	int T; cin >> T;
-	for(int t=1; t<=T; t++){
-		deque<int> a;
-		long long res = 0;
-		int N; cin >> N;
-		for(int n=0; n<N; n++){
-			int tmp; cin >> tmp;
-			a.push_back(tmp);		
-		} 
-		while(a.size()){
-			int mx_idx = max_element(a.begin(), a.end()) - a.begin();
-			int mx = *max_element(a.begin(), a.end());
-			for (int i=0; i<=mx_idx; i++){
-				res += (mx - a[0]);
-				a.pop_front();
-			}
+int arr[1000000];
+
+int main() {
+	//freopen("input.txt", "r", stdin);
+	//freopen("output.txt", "w", stdout);
+
+	int T, tc;
+	scanf("%d", &T);
+
+	int N, i;
+	//	unsigned int price[100];
+
+	for (tc = 1; tc <= T; ++tc) {
+
+		scanf("%d", &N);
+		for (i = 0; i < N; i++) {
+			scanf("%d", &arr[i]);
 		}
-		cout << '#' << t << ' ' << res << '\n';
+
+		int max = 0;
+		long long int profit = 0;
+
+		for (int i = N - 1; i >= 0; i--) {
+			if (arr[i] > max)	max = arr[i];
+			else	
+				profit += max - arr[i];
+
+		}
+
+		printf("#%d %lld\n", tc, profit);
 	}
-	
+
+
+	return 0;
 }

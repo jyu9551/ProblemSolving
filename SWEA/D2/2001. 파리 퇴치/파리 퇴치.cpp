@@ -25,7 +25,7 @@ int main(){
 						table2[i][j] += table[i+m][j+n];
 					}
 				}
-				mx = max(mx, table2[i][j]);
+				if (mx < table2[i][j]) mx = table2[i][j];
 			}
 		}
 		cout << '#' << t+1 << ' ' << mx << '\n';

@@ -1,19 +1,19 @@
-#include <bits/stdc++.h>
+#include "bits/stdc++.h"
 using namespace std;
-map <int,int> A;
-map <int,int> B;
+
+map<int,int> mp;
+
 int main(){
-	ios::sync_with_stdio(0); cin.tie(0);
-	int n; cin >> n;
-	while (n--){
-		long long tmp; cin >> tmp;
-		if (tmp >= 0) A.insert({tmp, 1});
-		else B.insert({-tmp, 1});
+	ios::sync_with_stdio(0);	cin.tie(0);
+	int N;	cin >> N;
+	while(N--){
+		int tmp; cin >> tmp;
+		mp.insert({tmp, 1});
 	}
-	int m; cin >> m;
-	while (m--){
-		long long tmp; cin >> tmp;
-		if (tmp >= 0) cout << A[tmp] << '\n';
-		else cout << B[-tmp] << '\n';
-	}	
+	
+	int M;	cin >> M;
+	while(M--){
+		int tmp; cin >> tmp;
+		cout << mp[tmp] << '\n';
+	}
 }

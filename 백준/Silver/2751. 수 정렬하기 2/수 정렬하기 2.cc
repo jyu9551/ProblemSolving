@@ -1,15 +1,20 @@
-#include<bits/stdc++.h>
+#include "bits/stdc++.h"
 using namespace std;
-int T,q;
-vector<long long>A;
-int main(int argc, char** argv)
-{
-    ios::sync_with_stdio(0); cin.tie(0);
-    cin >> T;
-    for(int i=0; i<T; i++) {
-        long long tmp; cin >> tmp;
-        A.push_back(tmp);
-    }
-    sort(A.begin(), A.end());
-	for(auto i:A) cout << i << '\n';
+vector<int> v;
+
+int main(){
+	ios::sync_with_stdio(0); cin.tie(0);
+	
+	int N; cin >> N;
+	
+	for (int i=0; i<N; i++) {
+		int tmp; cin >> tmp;
+		v.push_back(tmp);
+	}
+	sort(v.begin(), v.end());
+
+	for (int i=0; i<N; i++) {
+		cout << v[i] << '\n';
+	}
+
 }

@@ -1,35 +1,46 @@
-#include <bits/stdc++.h>
+#include "bits/stdc++.h"
 using namespace std;
-int N;
-queue <int> a;
+
+queue <int> stk;
 
 int main(){
-	cin >> N;
+	ios::sync_with_stdio(0); cin.tie(0);
+	int N; cin >> N;
 	while(N--){
-		string op;
-		cin >> op;
-	
-		if (op == "push"){
+		string in; cin >> in;
+		if (in == "push"){
 			int tmp; cin >> tmp;
-			a.push(tmp); 
+			stk.push(tmp);
 		}
-		else if (op == "pop"){
-			if (a.size() == 0) cout << -1 << '\n';
-			else {
-				cout << a.front() << '\n';
-				a.pop();
+		else if (in == "pop"){
+			if (stk.empty()) cout << -1 << '\n';
+			else {			
+				int tmp = stk.front();
+				cout << tmp << '\n';
+				stk.pop();
 			}
 		}
-		else if (op == "size") cout << a.size() << '\n';
-		else if (op == "empty") cout << a.empty() << '\n';
-		else if (op == "front") {
-			if (a.size() == 0) cout << -1 << '\n';
-			else cout << a.front() << '\n';
+		else if (in == "size"){
+			cout << stk.size() << '\n';
 		}
-		else {
-			if (a.size() == 0) cout << -1 << '\n';
-			else cout << a.back() << '\n';
+		else if (in == "empty"){
+			cout << stk.empty() << '\n';
 		}
+		else if (in == "front"){
+			if (stk.empty()) cout << -1 << '\n';
+			else {			
+				cout << stk.front() << '\n';
+			}
+		}	
+		else if (in == "back"){
+			if (stk.empty()) cout << -1 << '\n';
+			else {			
+				cout << stk.back() << '\n';
+			}
+		}	
 	
 	}
+	
+
+
 }
